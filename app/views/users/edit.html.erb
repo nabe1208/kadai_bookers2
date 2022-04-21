@@ -1,0 +1,30 @@
+<p id="notice"></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 px-5 mx-auto">
+      <h2>User info</h2>
+
+        <% if @user.errors.any? %>
+          <ul class="alert alert-danger" role="alert">
+            <h6 class="alert-heading">
+              <%= @user.errors.count %>件のエラーが発生しました
+            </h6>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= form_with model: @user, url: user_path(@user.id), method: :patch do |f| %>
+         <label for="inputName">Name</label>
+          <p><%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前", size: "30", border: "1px solid-#ced4da" %></p>
+         <label for="inputImage">ProfileImage</label>
+          <p><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></p>
+         <label for="inputIntroduction">Introduction</label>
+          <p><%= f.text_field :introduction, autofocus: true, id:"inputintroduction", placeholder:"自己紹介", size: "30", border: "1px solid-#ced4da" %></p>
+          <%= f.submit "Update User", class: "btn btn-secondary mt-3" %>
+        <% end %>
+    </div>
+  </div>
+</div>

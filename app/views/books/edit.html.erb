@@ -1,0 +1,31 @@
+<!--edit_book_path(/books/:id/edit)-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 px-5 px-sm-0 mx-auto">
+      <h1 class="top-heading mt-2">Editing Book</h1>
+
+       <% if @book.errors.any? %>
+         <ul class="alert alert-danger" role="alert">
+          <h6 class="alert-heading">
+           <%= @book.errors.count %> error prohibited this obj from being saved:
+          </h6>
+           <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+           <% end %>
+         </ul>
+       <% end %>
+
+        <%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
+         <label for="inputTitle">Title</label>
+          <p><%= f.text_field :title, id:"inputName", size: "50", border: "1px solid-#ced4da" %></p>
+         <label for="inputBody">Opinion</label>
+          <p><%= f.text_field :body, id:"inputBody", size: "50", border: "1px solid-#ced4da" %></p>
+          <%= f.submit "Update Book", class: "btn btn-success mt-3" %>
+        <% end %>
+     <p class="link p-2">
+      <%= link_to 'Show', book_path(@book.id) %> |
+      <%= link_to 'Back', books_path %>
+     </p>
+    </div>
+  </div>
+</div>

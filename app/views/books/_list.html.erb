@@ -1,0 +1,44 @@
+<!--部分テンプレート-->
+
+<h1>User info</h1>
+<div>
+  <%= image_tag user.get_profile_image(100,100) %>
+</div>
+<table class="table">
+  <tbody>
+     <tr>
+       <th>name</th>
+       <th><%= user.name %></th>
+     </tr>
+     <tr>
+      <th>introduction</th>
+      <th><%= user.introduction %></th>
+     </tr>
+  </tbody>
+ </table>
+
+ <%= link_to edit_user_path(user.id), class: "btn btn-outline-secondary btn-block" do %>
+  <i class="fas fa-user-cog"></i>
+ <% end %>
+
+ <h2 class="mt-3">New book</h2>
+
+ <% if @book.errors.any? %>
+  <ul class="alert alert-danger" role="alert">
+    <h6 class="alert-heading">
+     <%= @book.errors.count %>件のエラーが発生しました
+    </h6>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+ <% end %>
+
+  <!--New book 投稿機能-->
+ <%= form_with model: book do |f| %>
+  <p>Title</p>
+    <%= f.text_field :title, size: "15", border: "1px solid-gray" %>
+  <p>Opinion</p>
+    <%= f.text_area :body, size: "18" %>
+  <%= f.submit 'Create Book', class:"btn btn-success mt-3" %>
+ <% end %>
